@@ -61,6 +61,14 @@ prompt_git() {
 	fi;
 }
 
+prompt_pyenv() {
+	if [[ `pyenv version-name` == "system" ]] ; then
+		return;
+	else
+		echo -e " (`pyenv version-name`)"
+	fi;
+}
+
 if tput setaf 1 &> /dev/null; then
 	tput sgr0; # reset colors
 	bold=$(tput bold);
@@ -109,6 +117,7 @@ fi;
 PS1="\[\033]0;\W\007\]"; # working directory base name
 PS1+="\[${bold}\]\n"; # newline
 PS1+="\[${userStyle}\]\u"; # username
+PS1+="\[${blue}\]\$(prompt_pyenv)"; # pyenv
 PS1+="\[${white}\] at ";
 #PS1+="\[${hostStyle}\]\h"; # host
 #PS1+="\[${white}\] in ";
